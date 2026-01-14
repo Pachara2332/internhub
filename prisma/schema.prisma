@@ -1,0 +1,181 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  student
+  company
+  admin
+}
+
+enum CompanyMemberRole {
+  owner
+  hr
+  reviewer
+}
+
+enum MemberStatus {
+  active
+  invited
+  disabled
+}
+
+enum JobType {
+  intern
+  part_time
+  full_time
+}
+
+enum WorkMode {
+  onsite
+  hybrid
+  remote
+}
+
+enum JobStatus {
+  draft
+  open
+  closed
+}
+
+enum ApplicationStatus {
+  submitted
+  reviewing
+  interview
+  offer
+  rejected
+  withdrawn
+}
+
+model Profile {
+  userId      String   @id @db.Uuid
+  role        Role
+  displayName String
+  avatarUrl   String?
+  phone       String?
+  university  String?
+  faculty     String?
+  major       String?
+  yearLevel   Int?
+  bio         String?
+  location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  companies    CompanyMember[]
+  portfolio    Portfolio[]
+  applications Application[]
+
+  @@map("profiles")
+}
+
+model Company {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String   @unique
+  logoUrl   String?
+  website   String?
+  about     String?
+  industry  String?
+  sizeRange String?
+  location  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members CompanyMember[]
+  jobs    Job[]
+
+  @@map("companies")
+}
+
+model CompanyMember {
+  companyId  String            @db.Uuid
+  userId     String            @db.Uuid
+  memberRole CompanyMemberRole
+  status     MemberStatus      @default(active)
+  createdAt  DateTime          @default(now())
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user    Profile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@id([companyId, userId])
+  @@map("company_members")
+}
+
+model Job {
+  id           String    @id @default(uuid()) @db.Uuid
+  companyId    String    @db.Uuid
+  title        String
+  description  String
+  requirements String?
+  jobType      JobType
+  workMode     WorkMode
+  location     String?
+  stipendMin   Int?
+  stipendMax   Int?
+  currency     String    @default("THB")
+  tags         String[]  @default([])
+  openings     Int       @default(1)
+  startDate    DateTime?
+  endDate      DateTime?
+  status       JobStatus @default(draft)
+  publishedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  company      Company[]
+  applications Application[]
+
+  @@index([companyId, status, publishedAt(sort: Desc)])
+  @@map("jobs")
+}
+
+model Portfolio {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String   @unique @db.Uuid
+  slug       String   @unique
+  headline   String?
+  summary    String?
+  theme      String   @default("default")
+  isPublic   Boolean  @default(true)
+  viewsCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user         Profile[]
+  applications Application[]
+
+  @@map("portfolios")
+}
+
+model Application {
+  id            String            @id @default(uuid()) @db.Uuid
+  jobId         String            @db.Uuid
+  studentUserId String            @db.Uuid
+  portfolioId   String?           @db.Uuid
+  resumeUrl     String?
+  coverLetter   String?
+  status        ApplicationStatus @default(submitted)
+  appliedAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  job       Job[]
+  student   Profile    @relation(fields: [studentUserId], references: [userId])
+  portfolio Portfolio? @relation(fields: [portfolioId], references: [id])
+
+  @@unique([jobId, studentUserId])
+  @@index([jobId, status, appliedAt(sort: Desc)])
+  @@index([studentUserId, appliedAt(sort: Desc)])
+  @@map("applications")
+}
