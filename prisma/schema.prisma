@@ -1,16 +1,17 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum PasswordAlgo {
+  bcrypt
+  argon2
 }
 
 enum Role {
@@ -58,6 +59,22 @@ enum ApplicationStatus {
   withdrawn
 }
 
+model UserCredential {
+  userId       String       @id @db.Uuid
+  email        String       @unique
+  passwordHash String
+  passwordAlgo PasswordAlgo @default(bcrypt)
+  isActive     Boolean      @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  profile Profile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([email])
+  @@map("user_credentials")
+}
+
 model Profile {
   userId      String   @id @db.Uuid
   role        Role
@@ -73,8 +90,9 @@ model Profile {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  credential   UserCredential? // ✅ One-to-One relation
   companies    CompanyMember[]
-  portfolio    Portfolio[]
+  portfolio    Portfolio?
   applications Application[]
 
   @@map("profiles")
@@ -134,10 +152,11 @@ model Job {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  company      Company[]
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   applications Application[]
 
   @@index([companyId, status, publishedAt(sort: Desc)])
+  @@index([status, publishedAt(sort: Desc)])
   @@map("jobs")
 }
 
@@ -153,7 +172,7 @@ model Portfolio {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  user         Profile[]
+  user         Profile       @relation(fields: [userId], references: [userId], onDelete: Cascade)
   applications Application[]
 
   @@map("portfolios")
@@ -170,9 +189,9 @@ model Application {
   appliedAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
 
-  job       Job[]
-  student   Profile    @relation(fields: [studentUserId], references: [userId])
-  portfolio Portfolio? @relation(fields: [portfolioId], references: [id])
+  job       Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  student   Profile    @relation(fields: [studentUserId], references: [userId], onDelete: Cascade)
+  portfolio Portfolio? @relation(fields: [portfolioId], references: [id], onDelete: SetNull)
 
   @@unique([jobId, studentUserId])
   @@index([jobId, status, appliedAt(sort: Desc)])
