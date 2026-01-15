@@ -1,9 +1,11 @@
 import { randomUUID } from "crypto";
+import bcrypt from "bcrypt";
 import prisma from "./client.js";
 
 type SeedUser = {
   userId: string;
   email: string;
+  plainPassword: string;
   role: "student" | "company" | "admin";
   displayName: string;
   avatarUrl?: string;
@@ -20,6 +22,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "maya.s@internhub.test",
+    plainPassword: "Maya@1234",
     role: "student",
     displayName: "Maya Sirisuk",
     university: "Khon Kaen University",
@@ -32,6 +35,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "phet.t@internhub.test",
+    plainPassword: "Phet@1234",
     role: "student",
     displayName: "Phet Tanakorn",
     university: "Chulalongkorn University",
@@ -44,6 +48,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "jamie.n@internhub.test",
+    plainPassword: "Jamie@1234",
     role: "student",
     displayName: "Jamie Narin",
     university: "Mahidol University",
@@ -56,6 +61,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "sarai.k@internhub.test",
+    plainPassword: "Sarai@1234",
     role: "student",
     displayName: "Sarai Khem",
     university: "Chiang Mai University",
@@ -68,6 +74,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "hr@brightpath.test",
+    plainPassword: "Brightpath@1234",
     role: "company",
     displayName: "Brightpath HR",
     location: "Bangkok",
@@ -76,6 +83,7 @@ const seedUsers: SeedUser[] = [
   {
     userId: randomUUID(),
     email: "people@northstar.test",
+    plainPassword: "Northstar@1234",
     role: "company",
     displayName: "Northstar People Ops",
     location: "Khon Kaen",
@@ -83,11 +91,16 @@ const seedUsers: SeedUser[] = [
   },
 ];
 
-const mockPasswordHash = "mock_password_hash";
-
 async function seedProfiles() {
+  const hashedUsers = await Promise.all(
+    seedUsers.map(async (user) => ({
+      ...user,
+      passwordHash: await bcrypt.hash(user.plainPassword, 10),
+    }))
+  );
+
   await prisma.profile.createMany({
-    data: seedUsers.map((user) => ({
+    data: hashedUsers.map((user) => ({
       userId: user.userId,
       role: user.role,
       displayName: user.displayName,
@@ -103,10 +116,10 @@ async function seedProfiles() {
   });
 
   await prisma.userCredential.createMany({
-    data: seedUsers.map((user) => ({
+    data: hashedUsers.map((user) => ({
       userId: user.userId,
       email: user.email,
-      passwordHash: mockPasswordHash,
+      passwordHash: user.passwordHash,
       passwordAlgo: "bcrypt",
       isActive: true,
     })),
@@ -296,6 +309,13 @@ async function main() {
   await seedApplications(jobs, portfolios);
 
   console.log("Database seeded successfully.");
+  console.table(
+    seedUsers.map((user) => ({
+      email: user.email,
+      password: user.plainPassword,
+      role: user.role,
+    }))
+  );
 }
 
 main()
