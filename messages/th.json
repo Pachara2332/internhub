@@ -1,0 +1,70 @@
+{
+    "common": {
+        "appName": "InternHub",
+        "footer": "© 2026 InternHub สงวนลิขสิทธิ์"
+    },
+    "nav": {
+        "home": "หน้าแรก",
+        "about": "เกี่ยวกับเรา",
+        "contact": "ติดต่อ",
+        "internships": "ตำแหน่งฝึกงาน",
+        "signIn": "เข้าสู่ระบบ",
+        "register": "สมัครสมาชิก"
+    },
+    "login": {
+        "welcomeTitle": "ยินดีต้อนรับสู่ InternHub",
+        "welcomeSubtitle": "เริ่มต้นเส้นทางอาชีพของคุณกับเรา",
+        "platformDescription": "แพลตฟอร์มหาฝึกงานสำหรับนักศึกษา",
+        "exploreButton": "ค้นหาตำแหน่งฝึกงาน",
+        "emailPlaceholder": "กรอกอีเมลของคุณ",
+        "passwordPlaceholder": "รหัสผ่าน",
+        "rememberMe": "จดจำฉัน",
+        "forgotPassword": "ลืมรหัสผ่าน?",
+        "signIn": "เข้าสู่ระบบ",
+        "orConnectWith": "หรือเข้าสู่ระบบด้วย",
+        "noAccount": "ยังไม่มีบัญชี?",
+        "signUp": "สมัครสมาชิก",
+        "signInWithGoogle": "เข้าสู่ระบบด้วย Google"
+    },
+    "home": {
+        "heroTitle": "ค้นหาโอกาสฝึกงาน",
+        "heroTitleHighlight": "ที่ใช่สำหรับคุณ",
+        "heroSubtitle": "เชื่อมต่อนักศึกษากับบริษัทชั้นนำ สร้างประสบการณ์จริงก่อนก้าวสู่โลกการทำงาน",
+        "searchPlaceholder": "ค้นหาตำแหน่งฝึกงาน, บริษัท, หรือทักษะ...",
+        "searchButton": "ค้นหา",
+        "featuredTitle": "ตำแหน่งฝึกงานแนะนำ",
+        "viewAll": "ดูทั้งหมด",
+        "statsStudents": "นักศึกษาที่ใช้งาน",
+        "statsCompanies": "บริษัทพาร์ทเนอร์",
+        "statsPositions": "ตำแหน่งฝึกงาน",
+        "statsSuccess": "อัตราการได้งาน",
+        "hotCareersTitle": "งานตามสาขาอาชีพ (Hot Careers)",
+        "hotCareersPositions": "ตำแหน่งงาน",
+        "whyTitle": "ทำไมต้อง InternHub?",
+        "whyReason1Title": "ค้นหาง่าย",
+        "whyReason1Desc": "ระบบค้นหาอัจฉริยะช่วยจับคู่คุณกับตำแหน่งที่เหมาะสม",
+        "whyReason2Title": "พอร์ตโฟลิโอ",
+        "whyReason2Desc": "สร้างโปรไฟล์และนำเสนอผลงานให้บริษัทได้เห็น",
+        "whyReason3Title": "ติดตามสถานะ",
+        "whyReason3Desc": "ตรวจสอบสถานะการสมัครได้แบบเรียลไทม์",
+        "ctaTitle": "พร้อมเริ่มต้นอาชีพของคุณแล้วหรือยัง?",
+        "ctaButton": "สมัครสมาชิกฟรี",
+        "perMonth": "/เดือน",
+        "apply": "สมัคร",
+        "aboutTitle": "หาฝึกงานกับ",
+        "aboutDesc": "หาฝึกงาน สมัครฝึกงาน ได้งานเร็วต้อง InternHub แหล่งรวบรวมตำแหน่งฝึกงานคุณภาพจากบริษัทชั้นนำทั่วประเทศไทย",
+        "aboutFeature1Title": "ตำแหน่งงานหลากหลาย มีคุณภาพ",
+        "aboutFeature1Desc": "เรามีตำแหน่งงานมากมายจากบริษัทชั้นนำทั่วประเทศ",
+        "aboutFeature2Title": "อัปเดตตำแหน่งงานใหม่ ๆ ทุกวัน",
+        "aboutFeature2Desc": "เพื่อให้คุณได้เจอตำแหน่งงานใหม่ล่าสุดจากหลากหลายบริษัท",
+        "aboutFeature3Title": "ฟังก์ชันมากมายในการหางาน",
+        "aboutFeature3Desc": "เพิ่มโอกาสการได้งานมากขึ้นเพียงสมัครสมาชิก และฝากเรซูเม่กับ InternHub",
+        "aboutFeature4Title": "ฝากเรซูเม่ได้อย่างมั่นใจ",
+        "aboutFeature4Desc": "คุณจะได้รับการคุ้มครองตาม ข้อตกลงและนโยบายความเป็นส่วนตัว"
+    },
+    "error": {
+        "notFoundTitle": "404",
+        "notFoundMessage": "ไม่พบหน้าที่คุณต้องการ",
+        "backHome": "กลับหน้าแรก"
+    }
+}

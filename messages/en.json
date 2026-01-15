@@ -1,0 +1,70 @@
+{
+    "common": {
+        "appName": "InternHub",
+        "footer": "© 2026 InternHub. All rights reserved."
+    },
+    "nav": {
+        "home": "Home",
+        "about": "About",
+        "contact": "Contact",
+        "internships": "Internships",
+        "signIn": "Sign in",
+        "register": "Register"
+    },
+    "login": {
+        "welcomeTitle": "Welcome to InternHub",
+        "welcomeSubtitle": "Start your career journey with us",
+        "platformDescription": "Internship platform for students",
+        "exploreButton": "Explore Internships",
+        "emailPlaceholder": "Enter your email address",
+        "passwordPlaceholder": "Password",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot Password?",
+        "signIn": "SIGN IN",
+        "orConnectWith": "Or connect with",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up",
+        "signInWithGoogle": "Sign in with Google"
+    },
+    "home": {
+        "heroTitle": "Find Your Perfect",
+        "heroTitleHighlight": "Internship",
+        "heroSubtitle": "Connect students with leading companies. Build real experience before entering the workforce.",
+        "searchPlaceholder": "Search internships, companies, or skills...",
+        "searchButton": "Search",
+        "featuredTitle": "Featured Internships",
+        "viewAll": "View All",
+        "statsStudents": "Active Students",
+        "statsCompanies": "Partner Companies",
+        "statsPositions": "Internship Positions",
+        "statsSuccess": "Success Rate",
+        "hotCareersTitle": "Hot Careers",
+        "hotCareersPositions": "positions",
+        "whyTitle": "Why InternHub?",
+        "whyReason1Title": "Easy Search",
+        "whyReason1Desc": "Smart search system matches you with the right positions",
+        "whyReason2Title": "Portfolio",
+        "whyReason2Desc": "Create your profile and showcase your work to companies",
+        "whyReason3Title": "Track Status",
+        "whyReason3Desc": "Monitor your application status in real-time",
+        "ctaTitle": "Ready to Start Your Career?",
+        "ctaButton": "Sign Up Free",
+        "perMonth": "/month",
+        "apply": "Apply",
+        "aboutTitle": "Find Internship with",
+        "aboutDesc": "Find internships, apply for internships, get jobs fast with InternHub. A collection of quality internship positions from leading companies.",
+        "aboutFeature1Title": "Variety of Quality Positions",
+        "aboutFeature1Desc": "We have many positions from leading companies across the country",
+        "aboutFeature2Title": "New Positions Updated Daily",
+        "aboutFeature2Desc": "So you can find the latest positions from various companies",
+        "aboutFeature3Title": "Many Features for Job Search",
+        "aboutFeature3Desc": "Increase your chances of getting a job by registering and submitting your resume",
+        "aboutFeature4Title": "Submit Resume with Confidence",
+        "aboutFeature4Desc": "You will be protected under our Terms of Service and Privacy Policy"
+    },
+    "error": {
+        "notFoundTitle": "404",
+        "notFoundMessage": "This page could not be found.",
+        "backHome": "Back to Home"
+    }
+}
